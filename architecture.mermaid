@@ -1,0 +1,23 @@
+graph TD
+    Start([User submits research question]) --> Supervisor{Supervisor Agent}
+
+    Supervisor -->|dispatch| Search[Search Agent<br/>Tavily Web Search]
+    Supervisor -->|dispatch| Paper[Paper Agent<br/>Semantic Scholar API]
+
+    Search --> Join[Aggregate Results<br/>into Shared State]
+    Paper --> Join
+
+    Join --> Analysis[Analysis Agent<br/>Extract & rank key findings]
+
+    Analysis --> Decision{Supervisor:<br/>Enough evidence?}
+    Decision -->|Gaps found, re-query| Supervisor
+    Decision -->|Sufficient| Synthesis[Synthesis Agent<br/>Write cited report]
+
+    Synthesis --> End([Final Report<br/>with inline citations])
+
+    style Supervisor fill:#4A90D9,color:#fff
+    style Decision fill:#4A90D9,color:#fff
+    style Search fill:#50C878,color:#fff
+    style Paper fill:#50C878,color:#fff
+    style Analysis fill:#F5A623,color:#fff
+    style Synthesis fill:#D0021B,color:#fff
